@@ -1,4 +1,4 @@
-package com.svaboda.bot;
+package com.svaboda.telegram;
 
 
 class BotApplicationTests {

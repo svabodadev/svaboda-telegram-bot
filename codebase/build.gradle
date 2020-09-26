@@ -1,3 +1,8 @@
+project.ext.telegrambotsVersion = "4.9.1"
+project.ext.lombokVersion = "1.18.12"
+project.ext.vavrVersion = "0.10.2"
+project.ext.sl4jVersion = "2.13.3"
+
 repositories {
 	mavenCentral()
 	jcenter()

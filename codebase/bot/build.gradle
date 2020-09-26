@@ -1,7 +1,26 @@
 
-
-
-
 dependencies {
+    implementation "org.telegram:telegrambots-spring-boot-starter:$telegrambotsVersion"
+    implementation "org.telegram:telegrambots-abilities:$telegrambotsVersion"
+    implementation "org.yaml:snakeyaml:1.27"
+    implementation "io.vavr:vavr:$vavrVersion"
 
+    //lombok
+    implementation "org.projectlombok:lombok:$lombokVersion"
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+    testImplementation "org.projectlombok:lombok:$lombokVersion"
+    testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
+
+    //logging
+    implementation "org.apache.logging.log4j:log4j-slf4j-impl:$sl4jVersion"
+    implementation "org.apache.logging.log4j:log4j-api:$sl4jVersion"
+    implementation "org.apache.logging.log4j:log4j-core:$sl4jVersion"
+    implementation "org.apache.logging.log4j:log4j-jul:$sl4jVersion"
+    implementation "org.slf4j:jul-to-slf4j:1.7.30"
+
+//    testImplementation "org.junit.jupiter:junit-jupiter:5.6.2"
+    testImplementation("org.springframework.boot:spring-boot-starter-test:2.3.0.RELEASE") {
+        exclude module: "junit"
+        exclude module: "junit-vintage-engine"
+    }
 }
