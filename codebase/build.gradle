@@ -1,0 +1,25 @@
+repositories {
+	mavenCentral()
+	jcenter()
+}
+
+allprojects {
+	group = 'com.svaboda'
+	version = '0.0.1-SNAPSHOT'
+	apply plugin: 'java'
+	sourceCompatibility = 1.14
+	targetCompatibility = 1.14
+
+	repositories {
+		mavenCentral()
+		jcenter()
+	}
+}
+
+subprojects {
+
+}
+
+
+
+
