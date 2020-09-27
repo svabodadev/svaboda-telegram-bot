@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -Dserver.port=3128 -jar codebase/bot/build/libs/bot-0.0.1-SNAPSHOT.jar
+web: cd codebase/bot/ && gradle clean && gradle bootJar && java $JAVA_OPTS -Dserver.port=3128 -jar build/libs/bot-0.0.1-SNAPSHOT.jar
