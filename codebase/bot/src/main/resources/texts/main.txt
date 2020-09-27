@@ -1,0 +1,5 @@
+Welcome, looking for information? Pick one of the following topics please:
+
+/aboutus
+/inpoland
+/rutest
