@@ -30,10 +30,17 @@ allprojects {
 		mavenCentral()
 		jcenter()
 	}
+
+	task copyToLib(type: Copy) {
+		into "$buildDir/libs"
+		from(configurations.compile)
+	}
+
 }
 
 subprojects {
 	apply from: file("$rootProject.projectDir/gradle/heroku/stage.gradle")
+	stage.dependsOn(copyToLib)
 }
 
 
