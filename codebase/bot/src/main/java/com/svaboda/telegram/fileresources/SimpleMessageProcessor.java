@@ -8,8 +8,6 @@ import com.svaboda.telegram.domain.TelegramResource;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -21,8 +19,6 @@ import static com.svaboda.telegram.support.ArgsValidation.notNull;
 @RequiredArgsConstructor
 class SimpleMessageProcessor implements MessageProcessor {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SimpleMessageProcessor.class);
-
     private final ResourceProvider<String> resourceProvider;
     private final Commands commands;
 
@@ -33,7 +29,6 @@ class SimpleMessageProcessor implements MessageProcessor {
                 .map(TelegramResource::resource)
                 .map(answer -> toMessage(update, answer))
                 .flatMap(message -> Try.run(() -> bot.execute(message)));
-
     }
 
     private Try<Command> toCommand(Update update) {
@@ -45,7 +40,6 @@ class SimpleMessageProcessor implements MessageProcessor {
                 })
                 .map(Message::getText)
                 .map(commands::byName)
-                .peek(command -> LOG.info("Resolved message for command <<{}>>", command.name()))
                 .recoverWith(failure -> Try.failure(new RuntimeException("Received not processable message", failure)));
     }
 

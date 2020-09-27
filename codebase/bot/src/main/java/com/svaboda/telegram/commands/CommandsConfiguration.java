@@ -6,10 +6,10 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @EnableConfigurationProperties({CommandsProperties.class})
-class CommandsConfiguration {
+public class CommandsConfiguration {
 
     @Bean
-    Commands commands(CommandsProperties properties) {
+    public Commands commands(CommandsProperties properties) {
         return new CommandsContainer(properties.commands());
     }
 

@@ -9,6 +9,6 @@ import java.util.List;
 @ConfigurationProperties(prefix = "env")
 @ConstructorBinding
 @Value
-class CommandsProperties {
+public class CommandsProperties {
     List<Command> commands;
 }
