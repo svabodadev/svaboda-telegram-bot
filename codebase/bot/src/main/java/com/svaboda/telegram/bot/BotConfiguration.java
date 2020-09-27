@@ -1,22 +1,23 @@
 package com.svaboda.telegram.bot;
 
-import com.svaboda.telegram.domain.ResourceProvider;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.telegram.telegrambots.bots.DefaultBotOptions;
 
 @Configuration
 @EnableConfigurationProperties({BotProperties.class})
 class BotConfiguration {
 
     @Bean
-    Bot bot(BotProperties botProperties) {
-        return new Bot(botProperties);
+    Bot bot(BotProperties properties, MessageProcessor messageProcessor) {
+        return new Bot(botOptions(properties), properties, messageProcessor);
     }
 
-    @Bean
-    CommandHandler commandHandler(ResourceProvider<String> resourceProvider) {
-        return new SimpleCommandHandler(resourceProvider);
+    private DefaultBotOptions botOptions(BotProperties botProperties) {
+        final var options = new DefaultBotOptions();
+        options.setBaseUrl(botProperties.baseUrl());
+        return options;
     }
 
 }

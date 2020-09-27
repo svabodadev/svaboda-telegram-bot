@@ -1,7 +1,6 @@
 
 dependencies {
     implementation "org.telegram:telegrambots-spring-boot-starter:$telegrambotsVersion"
-    implementation "org.telegram:telegrambots-abilities:$telegrambotsVersion"
     implementation "org.yaml:snakeyaml:1.27"
     implementation "io.vavr:vavr:$vavrVersion"
 

@@ -1,6 +1,6 @@
 package com.svaboda.telegram.fileresources;
 
-import com.svaboda.telegram.domain.Command;
+import com.svaboda.telegram.commands.Command;
 import com.svaboda.telegram.domain.ResourceProvider;
 import com.svaboda.telegram.domain.TelegramResource;
 import io.vavr.control.Try;
@@ -14,30 +14,23 @@ class CachedFileResourceProvider implements ResourceProvider<String> {
 
     private static final Logger LOG = LoggerFactory.getLogger(CachedFileResourceProvider.class);
 
-//    private final Map<String,TelegramResource<String>> cache;
+    private static final Map<String,TelegramResource<String>> cache = new ConcurrentHashMap<>();
     private final TextFileResourceReader textFileResourceReader;
 
     CachedFileResourceProvider(TextFileResourceReader textFileResourceReader) {
         this.textFileResourceReader = textFileResourceReader;
-//        this.cache = new ConcurrentHashMap<>();
     }
 
     @Override
     public Try<TelegramResource<String>> provideBy(Command command) {
-        return Try.of(command::filename)
-//                .map(filename -> cache.computeIfAbsent(
-//                        filename,
-//                        __ -> new TelegramResource<>(textFileResourceReader.readFrom(filename)
-//                                .recoverWith(failure -> Try.failure(new ReadingFileException("Unable to read file"+filename, failure)))
-//                                .onFailure(failure -> LOG.error(failure.getMessage(), failure))
-//                                .get()//todo recovery with other resource?
-//                        )
-//                    )
-//                );
-                .map(filename -> new TelegramResource<>(textFileResourceReader.readFrom(filename)
+        return Try.of(command::resourceId)
+                .map(filename -> cache.computeIfAbsent(
+                        filename,
+                        __ -> new TelegramResource<>(textFileResourceReader.readFrom(filename)
                                 .recoverWith(failure -> Try.failure(new ReadingFileException("Unable to read file"+filename, failure)))
                                 .onFailure(failure -> LOG.error(failure.getMessage(), failure))
                                 .get()//todo recovery with other resource?
+                        )
                     )
                 );
     }

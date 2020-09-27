@@ -1,7 +1,21 @@
 env:
   telegram:
+    texts:
+      path: texts/
     bot:
-      name: change-me
-      token: change-me
-      baseUrl: change-me
-      creatorId: 0
+      name: {{ change-me }}
+      token: {{ change-me }}
+      baseUrl: https://api.telegram.org/bot
+  commands:
+    -
+      name: main
+      resourceId: main
+    -
+      name: aboutus
+      resourceId: about_us
+    -
+      name: inpoland
+      resourceId: in_poland
+    -
+      name: rutest
+      resourceId: ru_test
