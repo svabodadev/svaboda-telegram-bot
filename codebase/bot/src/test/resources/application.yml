@@ -1,0 +1,15 @@
+env:
+  telegram:
+    texts:
+      path: texts/
+    bot:
+      name: any-name
+      token: any-token
+      baseUrl: https://localhost:8080
+  commands:
+    -
+      name: test
+      resourceId: test
+    -
+      name: cyrillic
+      resourceId: cyrillic
