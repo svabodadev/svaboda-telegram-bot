@@ -19,10 +19,6 @@ repositories {
 allprojects {
 	group = 'com.svaboda'
 	version = '0.0.1-SNAPSHOT'
-	apply plugin: 'java'
-	apply plugin: 'org.jetbrains.kotlin.jvm'
-	apply plugin: 'io.spring.dependency-management'
-	apply plugin: 'org.springframework.boot'
 	sourceCompatibility = 1.14
 	targetCompatibility = 1.14
 
@@ -30,16 +26,20 @@ allprojects {
 		mavenCentral()
 		jcenter()
 	}
+}
+
+subprojects {
+	apply from: file("$rootProject.projectDir/gradle/heroku/stage.gradle")
+	apply plugin: 'java'
+	apply plugin: 'org.jetbrains.kotlin.jvm'
+	apply plugin: 'io.spring.dependency-management'
+	apply plugin: 'org.springframework.boot'
 
 	task copyToLib(type: Copy) {
 		into "$buildDir/libs"
 		from(configurations.compile)
 	}
 
-}
-
-subprojects {
-	apply from: file("$rootProject.projectDir/gradle/heroku/stage.gradle")
 	stage.dependsOn(copyToLib)
 }
 
