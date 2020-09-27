@@ -14,7 +14,7 @@ class CachedFileResourceProvider implements ResourceProvider<String> {
 
     private static final Logger LOG = LoggerFactory.getLogger(CachedFileResourceProvider.class);
 
-    private static final Map<String,TelegramResource<String>> cache = new ConcurrentHashMap<>();
+    private final Map<String,TelegramResource<String>> cache = new ConcurrentHashMap<>();
     private final TextFileResourceReader textFileResourceReader;
 
     CachedFileResourceProvider(TextFileResourceReader textFileResourceReader) {

@@ -31,7 +31,6 @@ class SimpleMessageProcessor implements MessageProcessor {
         return toCommand(update)
                 .flatMap(resourceProvider::provideBy)
                 .map(TelegramResource::resource)
-                .peek(__ -> System.out.println("### resource: "+__))//todo
                 .map(answer -> toMessage(update, answer))
                 .flatMap(message -> Try.run(() -> bot.execute(message)));
 
