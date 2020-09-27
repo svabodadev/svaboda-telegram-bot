@@ -10,7 +10,7 @@ class CommandsConfiguration {
 
     @Bean
     Commands commands(CommandsProperties properties) {
-        return new CommandProvider(properties.commands());
+        return new CommandsContainer(properties.commands());
     }
 
 }

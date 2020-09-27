@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-class CommandProvider implements Commands {
+class CommandsContainer implements Commands {
 
     private static final Map<String,Command> commandsCache = new ConcurrentHashMap<>();
 
-    CommandProvider(List<Command> commands) {
+    CommandsContainer(List<Command> commands) {
         commands.forEach(command -> commandsCache.computeIfAbsent(command.name(), __ -> command));
     }
 
