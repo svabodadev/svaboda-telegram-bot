@@ -1,1 +1,1 @@
-task stage(dependsOn: ['clean', 'bootJar'])
+task stage(dependsOn: ['clean', 'build', 'bootJar'])
