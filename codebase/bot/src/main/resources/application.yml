@@ -3,9 +3,9 @@ env:
     texts:
       path: texts/
     bot:
-      name: {{ change-me }}
-      token: {{ change-me }}
-      baseUrl: https://api.telegram.org/bot
+      name: changeme
+      token: changeme
+      baseUrl: changeme
   commands:
     -
       name: main
