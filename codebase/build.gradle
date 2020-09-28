@@ -1,7 +1,3 @@
-plugins {
-	id 'java'
-}
-
 project.ext.telegrambotsVersion = "4.9.1"
 project.ext.sringbootVersion = "2.3.0.RELEASE"
 project.ext.lombokVersion = "1.18.12"
@@ -15,7 +11,8 @@ repositories {
 
 allprojects {
 	group = 'com.svaboda'
-	version = '0.0.1-SNAPSHOT'
+	version = '1.0.0-SNAPSHOT'
+	apply plugin: 'java'
 	sourceCompatibility = 1.14
 	targetCompatibility = 1.14
 
@@ -23,10 +20,4 @@ allprojects {
 		mavenCentral()
 		jcenter()
 	}
-}
-
-subprojects {
-	apply from: file("$rootProject.projectDir/gradle/heroku/stage.gradle")
-	sourceCompatibility = 1.14
-	targetCompatibility = 1.14
 }
