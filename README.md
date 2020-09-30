@@ -7,7 +7,7 @@
 |BOT_NAME|telegram bot name|any-bot-name|Yes
 |BOT_TOKEN|token to access telegram bot api|some-secret|Yes
 
-##Run using scripts (assuming one is in the repository's root dir)
+## Run using scripts (assuming one is in the repository's root dir)
 - locally (gradle required)
 ```
 cd scripts && chmod +x "run_bot.sh" && ./run_bot.sh
@@ -18,7 +18,7 @@ cd codebase && docker build --build-arg _port=${PORT} --build-arg _name=${BOT_NA
 docker run bot-service:latest
 ```
 
-##Deploy to Heroku cloud with container registry (required access to our [Heroku](https://dashboard.heroku.com/apps) and installed [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)):
+## Deploy to Heroku cloud with container registry (required access to our [Heroku](https://dashboard.heroku.com/apps) and installed [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)):
 ```
 heroku login
 heroku container:login
