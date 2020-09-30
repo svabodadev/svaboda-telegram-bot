@@ -8,6 +8,7 @@ plugins {
 
 dependencies {
     implementation "org.telegram:telegrambots-spring-boot-starter:$telegrambotsVersion"
+    implementation "org.springframework.boot:spring-boot-starter-web"
     implementation "org.yaml:snakeyaml:1.27"
     implementation "io.vavr:vavr:$vavrVersion"
 
