@@ -1,9 +1,0 @@
-build:
-  docker:
-    release:
-      dockerfile: Dockerfile
-      target: builder
-    web: codebase/Dockerfile
-  config:
-    BOT_NAME: "$BOT_NAME"
-    BOT_TOKEN: "$BOT_TOKEN"

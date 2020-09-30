@@ -17,8 +17,13 @@ WORKDIR $APP_HOME
 COPY --from=builder $APP_HOME/bot/build/libs/$ARTIFACT_NAME .
 ADD "/bot/run.sh" "/"
 RUN chmod +x "/run.sh"
+
+# setting env vars - not relevant for deployment with heroku
+ARG _port=$_port
 ARG _name=$_name
 ARG _token=$_token
+ENV PORT=$_port
 ENV BOT_NAME=$_name
 ENV BOT_TOKEN=$_token
+
 ENTRYPOINT ["/run.sh"]

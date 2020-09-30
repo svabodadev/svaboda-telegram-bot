@@ -5,6 +5,8 @@ env:
     texts:
       path: texts/
     bot:
+      name: ${BOT_NAME}
+      token: ${BOT_TOKEN}
       baseUrl: https://api.telegram.org/bot
   commands:
     -
