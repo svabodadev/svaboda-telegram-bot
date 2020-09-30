@@ -1,7 +1,7 @@
 HELP.md
 .gradle
 build/
-!gradle/wrapper/gradle-wrapper.jar
+!codebase/gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**
 !**/src/test/**
 
@@ -34,5 +34,4 @@ out/
 .DS_Store
 
 ### App properties ###
-*.yml
-/jqtest_bot
+/codebase/bot/src/main/resources/application.yml.tmpl
