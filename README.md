@@ -14,7 +14,7 @@ cd scripts && chmod +x "run_bot.sh" && ./run_bot.sh
 ```
 - with Docker ([Docker](https://docs.docker.com/get-docker/) required):
 ```
-cd codebase && docker build --build-arg _port=${PORT} --build-arg _name=${BOT_NAME} --build-arg _token=${BOT_TOKEN} -t bot-service .
+cd codebase && docker build --build-arg _port=${PORT} --build-arg _name=${BOT_NAME} --build-arg _token=${BOT_TOKEN} -t bot-service . && cd ..
 docker run bot-service:latest
 ```
 
@@ -22,11 +22,12 @@ docker run bot-service:latest
 ```
 heroku login
 heroku container:login
-cd codebase && heroku container:push web
+cd codebase && heroku container:push web && cd ..
 heroku container:release web
+
 ```
 To scale with heroku:
 ```
-numberOfInstances=1
+numberOfInstances=0
 heroku ps:scale web=${numberOfInstances} --app svaboda-bot
 ```
