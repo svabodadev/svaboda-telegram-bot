@@ -20,14 +20,28 @@ docker run bot-service:latest
 
 ## Deploy to Heroku cloud with container registry
 Important: for this kind of build/deployment there is no need to set up env vars. Requires access to our [Heroku](https://dashboard.heroku.com/apps) and [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) installed):
+Before any action one need to login: `heroku login`
+To build image:
 ```
-heroku login
 heroku container:login
 cd codebase && heroku container:push web && cd ..
-heroku container:release web
 ```
-To scale with heroku:
+To deploy: `heroku container:release web`
+
+To scale:
 ```
 numberOfInstances=1
 heroku ps:scale web=${numberOfInstances} --app svaboda-bot
 ```
+
+Check logs:
+`heroku logs --tail`
+
+One can use [worker](https://devcenter.heroku.com/articles/background-jobs-queueing) process for better service availability (during deployments):
+
+deploy worker to take over the work of the main (web) process while it is being redeployed:
+`cd codebase && heroku container:push worker && heroku container:release worker` (build and deploy additional worker process)
+
+next apply changes (ex. new code revision), build and deploy web process:
+`cd codebase && heroku container:push web && heroku container:release web`
+after that scale worker to 0: `heroku ps:scale worker=0 --app svaboda-bot`
