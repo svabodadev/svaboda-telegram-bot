@@ -19,6 +19,6 @@ ADD "/bot/run.sh" "/"
 RUN chmod +x "/run.sh"
 ARG _name=$_name
 ARG _token=$_token
-ENV _BOT_NAME=$_name
-ENV _BOT_TOKEN=$_token
+ENV BOT_NAME=$_name
+ENV BOT_TOKEN=$_token
 ENTRYPOINT ["/run.sh"]
