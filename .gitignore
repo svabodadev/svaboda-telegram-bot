@@ -33,5 +33,3 @@ out/
 
 .DS_Store
 
-### App properties ###
-/codebase/bot/src/main/resources/application.yml.tmpl

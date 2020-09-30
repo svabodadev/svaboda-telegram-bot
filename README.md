@@ -28,6 +28,6 @@ heroku container:release web
 ```
 To scale with heroku:
 ```
-numberOfInstances=0
+numberOfInstances=1
 heroku ps:scale web=${numberOfInstances} --app svaboda-bot
 ```
