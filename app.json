@@ -1,0 +1,5 @@
+{
+  "name": "telegram-bot",
+  "description": "any desc",
+  "image": "heroku/java"
+}
