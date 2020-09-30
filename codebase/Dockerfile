@@ -1,4 +1,4 @@
-FROM openjdk:14-oracle AS temp_container
+FROM openjdk:14-oracle AS builder
 
 ENV APP_HOME=/app
 WORKDIR $APP_HOME
@@ -14,7 +14,7 @@ FROM openjdk:14-oracle
 ENV APP_HOME=/app
 ENV ARTIFACT_NAME="bot-1.0.0-SNAPSHOT.jar"
 WORKDIR $APP_HOME
-COPY --from=temp_container $APP_HOME/bot/build/libs/$ARTIFACT_NAME .
+COPY --from=builder $APP_HOME/bot/build/libs/$ARTIFACT_NAME .
 ADD "/bot/run.sh" "/"
 RUN chmod +x "/run.sh"
 ARG _name=$_name
