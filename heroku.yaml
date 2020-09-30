@@ -1,5 +1,0 @@
-build:
-  docker:
-    web: /codebase/bot/Dockerfile
-run:
-  web: gradle build && gradle bootJar && docker build --build-arg _name="$BOT_NAME" --build-arg _token="$BOT_TOKEN" -t bot-service .
