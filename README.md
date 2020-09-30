@@ -1,6 +1,6 @@
-# telegram-test-bot
+# telegram-bot
 
-## Configuration variables (not included into application.yml) - not relevant for Heroku cloud deployment
+## Configuration variables
 |Key|Description|Example|Mandatory|
 |---|---|---|---|
 |PORT|TCP port on which application will listen incoming http requests|8080|Yes
@@ -18,13 +18,13 @@ cd codebase && docker build --build-arg _port=${PORT} --build-arg _name=${BOT_NA
 docker run bot-service:latest
 ```
 
-## Deploy to Heroku cloud with container registry (required access to our [Heroku](https://dashboard.heroku.com/apps) and installed [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)):
+## Deploy to Heroku cloud with container registry
+Important: for this kind of build/deployment there is no need to set up env vars. Requires access to our [Heroku](https://dashboard.heroku.com/apps) and [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) installed):
 ```
 heroku login
 heroku container:login
 cd codebase && heroku container:push web && cd ..
 heroku container:release web
-
 ```
 To scale with heroku:
 ```
