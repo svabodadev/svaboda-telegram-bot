@@ -10,7 +10,7 @@ Run script - to build, test and run bot service:
 cd scripts && chmod +x "run_bot.sh" && ./run_bot.sh
 ```
 
-###Running with docker (gradle and docker required):
+###Running with docker (docker required):
 ```
-cd codebase && gradle build && gradle bootJar && docker build --build-arg _name="$BOT_NAME" --build-arg _token="$BOT_TOKEN" -t bot-service bot/
+cd codebase && docker build --build-arg _name="$BOT_NAME" --build-arg _token="$BOT_TOKEN" -t bot-service .
 ```
