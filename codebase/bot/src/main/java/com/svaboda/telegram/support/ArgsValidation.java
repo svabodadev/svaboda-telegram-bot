@@ -13,4 +13,5 @@ public interface ArgsValidation {
         if (arg == null) throw new IllegalArgumentException("Param is null");
         return arg;
     }
+
 }

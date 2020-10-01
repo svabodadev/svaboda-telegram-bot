@@ -12,8 +12,10 @@ import static com.svaboda.telegram.support.ArgsValidation.notEmpty;
 class FileResourcesProperties {
 
     String path;
+    String fileExtension;
 
-    FileResourcesProperties(String path) {
+    FileResourcesProperties(String path, String fileExtension) {
         this.path = notEmpty(path);
+        this.fileExtension = notEmpty(fileExtension);
     }
 }

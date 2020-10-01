@@ -1,3 +1,5 @@
+#This is message example
+#/topics
 Содержание
 1	Происхождение. Ранние годы (1821—1837)
 1.1	Род Достоевских
@@ -35,7 +37,5 @@
 17	См. также
 18	Примечания
 19	Литература
-20	Ссылки
-Происхождение. Ранние годы (1821—1837)
-Род Достоевских
-Основная статья: Достоевские
+
+[go to article](https://docs.google.com/document/d/1t9G7U2oE_--wbNYhht9yjubPEGJUcFgZh_mAK37h5ko/edit?usp=sharing)

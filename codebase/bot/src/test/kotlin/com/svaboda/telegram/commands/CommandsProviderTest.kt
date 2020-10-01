@@ -1,5 +1,7 @@
 package com.svaboda.telegram.commands
 
+import com.svaboda.telegram.commands.Commands.TOPICS_COMMAND_NAME
+import com.svaboda.telegram.commands.Commands.TOPICS_COMMAND_RESOURCE_ID
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -9,11 +11,11 @@ class CommandsProviderTest {
     fun `should return default command with proper values`() {
         //given
         val commandsProvider = CommandsContainer(emptyList())
-        val expectedResult = Command("main", "main")
+        val expectedResult = Command(TOPICS_COMMAND_NAME, TOPICS_COMMAND_RESOURCE_ID)
 
 
         //when
-        val defaultCommand = commandsProvider.defaultCommand()
+        val defaultCommand = commandsProvider.topicsCommand()
 
         //then
         assertThat(defaultCommand).isEqualTo(expectedResult)
@@ -23,7 +25,7 @@ class CommandsProviderTest {
     fun `should return default command when no commands provided on creation`() {
         //given
         val commandsProvider = CommandsContainer(emptyList())
-        val defaultCommand = commandsProvider.defaultCommand()
+        val defaultCommand = commandsProvider.topicsCommand()
 
         //when
         val command = commandsProvider.byName(defaultCommand.name())

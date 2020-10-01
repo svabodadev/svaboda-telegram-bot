@@ -17,7 +17,7 @@ class FileResourcesConfiguration {
     }
 
     private ResourceProvider<String> resourceProvider(FileResourcesProperties fileResourcesProperties) {
-        return new CachedFileResourceProvider(new TextFileResourceReader(fileResourcesProperties.path()));
+        return new CachedFileResourceProvider(new TextFileResourceReader(fileResourcesProperties));
     }
 
 }

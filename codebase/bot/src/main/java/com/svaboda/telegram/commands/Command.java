@@ -11,8 +11,12 @@ public class Command {
     String resourceId;
 
     public Command(String name, String resourceId) {
-        this.name = PREFIX + notEmpty(name);
+        this.name = enrichWithPrefix(notEmpty(name));
         this.resourceId = notEmpty(resourceId);
+    }
+
+    private String enrichWithPrefix(String name) {
+        return name.startsWith(PREFIX) ? name : PREFIX+name;
     }
 
 }

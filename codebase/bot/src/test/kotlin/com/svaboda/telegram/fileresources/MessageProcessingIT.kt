@@ -5,10 +5,10 @@ import com.svaboda.telegram.commands.Commands
 import com.svaboda.telegram.commands.CommandsConfiguration
 import com.svaboda.telegram.commands.CommandsProperties
 import com.svaboda.telegram.domain.ResourceProvider
-import com.svaboda.telegram.fileresources.FileResourcesUtils.MAIN
-import com.svaboda.telegram.fileresources.FileResourcesUtils.TEXTS_RESOURCE_PATH
+import com.svaboda.telegram.fileresources.FileResourcesUtils.TEXTS_PATH
 import com.svaboda.telegram.fileresources.FileResourcesUtils.cyrillicCommand
-import com.svaboda.telegram.fileresources.FileResourcesUtils.mainCommand
+import com.svaboda.telegram.fileresources.FileResourcesUtils.topicsCommand
+import com.svaboda.telegram.fileresources.FileResourcesUtils.topicsContent
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -38,12 +38,12 @@ class MessageProcessingIT {
     @BeforeEach
     fun setup() {
         commandsConfiguration = CommandsConfiguration()
-        commandsProperties = CommandsProperties(listOf(mainCommand(), cyrillicCommand()))
+        commandsProperties = CommandsProperties(listOf(topicsCommand(), cyrillicCommand()))
         commands = commandsConfiguration.commands(commandsProperties)
 
-        fileResourcesProperties = FileResourcesProperties(TEXTS_RESOURCE_PATH)
+        fileResourcesProperties = FileResourcesProperties(TEXTS_PATH, FileResourcesUtils.TEXTS_FILE_EXTENSION)
         fileResourcesConfiguration = FileResourcesConfiguration()
-        resourceProvider = CachedFileResourceProvider(TextFileResourceReader(TEXTS_RESOURCE_PATH))
+        resourceProvider = CachedFileResourceProvider(TextFileResourceReader(fileResourcesProperties))
 
         simpleMessageProcessor = SimpleMessageProcessor(resourceProvider, commands)
 
@@ -55,9 +55,9 @@ class MessageProcessingIT {
     @Test
     fun `should successfully process message when no failure on underlying telegram dependency occurred`() {
         //given
-        val command = mainCommand()
+        val command = topicsCommand()
         val chatId = 1L
-        val sendMessage = SendMessage(chatId, MAIN)
+        val sendMessage = SendMessage(chatId, topicsContent())
         Mockito.`when`(message.text).thenReturn(command.name())
         Mockito.`when`(message.chatId).thenReturn(chatId)
         Mockito.`when`(update.message).thenReturn(message)
@@ -75,7 +75,7 @@ class MessageProcessingIT {
         //given
         val commandName = "unknown"
         val chatId = 1L
-        val expectedMessageToSend = SendMessage(chatId, MAIN)
+        val expectedMessageToSend = SendMessage(chatId, topicsContent())
         Mockito.`when`(message.text).thenReturn(commandName)
         Mockito.`when`(message.chatId).thenReturn(chatId)
         Mockito.`when`(update.message).thenReturn(message)
@@ -90,9 +90,9 @@ class MessageProcessingIT {
     @Test
     fun `should handle underlying telegram failure response`() {
         //given
-        val command = mainCommand()
+        val command = topicsCommand()
         val chatId = 1L
-        val sendMessage = SendMessage(chatId, MAIN)
+        val sendMessage = SendMessage(chatId, topicsContent())
         val terribleError = TelegramApiException("Boom!")
         Mockito.`when`(message.text).thenReturn(command.name())
         Mockito.`when`(message.chatId).thenReturn(chatId)

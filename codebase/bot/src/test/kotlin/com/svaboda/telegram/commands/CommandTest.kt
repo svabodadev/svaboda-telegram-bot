@@ -18,7 +18,7 @@ class CommandTest {
     }
 
     @Test
-    fun `should add prefix to command name`() {
+    fun `should add prefix to command name when prefix is missing`() {
         //given
         val prefix = "/"
         val name = "any-name"
@@ -28,6 +28,18 @@ class CommandTest {
 
         //then
         assertThat(result.name()).isEqualTo("$prefix$name")
+    }
+
+    @Test
+    fun `should not add additional prefix to command name when prefix is present`() {
+        //given
+        val prefixedName = "/any-name"
+
+        //when
+        val result = Command(prefixedName, "any")
+
+        //then
+        assertThat(result.name()).isEqualTo(prefixedName)
     }
 
 }

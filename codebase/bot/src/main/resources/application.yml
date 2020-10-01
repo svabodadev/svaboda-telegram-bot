@@ -4,14 +4,12 @@ env:
   telegram:
     texts:
       path: texts/
+      fileExtension: .md
     bot:
       name: ${BOT_NAME}
       token: ${BOT_TOKEN}
       baseUrl: https://api.telegram.org/bot
   commands:
-    -
-      name: main
-      resourceId: main
     -
       name: fyodor1
       resourceId: bio1
