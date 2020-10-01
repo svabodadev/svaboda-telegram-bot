@@ -31,12 +31,12 @@ class CachedFileResourceProvider implements ResourceProvider<String> {
         return Try.of(command::resourceId)
                 .map(filename -> cache.computeIfAbsent(
                         filename,
-                        __ -> resolveContentBy(command)
+                        __ -> resolveBy(command)
                     )
                 );
     }
 
-    private TelegramResource<String> resolveContentBy(Command command) {
+    private TelegramResource<String> resolveBy(Command command) {
         return reader.readFrom(command.resourceId())
                 .flatMap(resource -> transformer.asContent(command, resource))
                 .map(TelegramResource::new)
