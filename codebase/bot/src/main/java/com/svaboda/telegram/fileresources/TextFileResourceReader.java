@@ -1,5 +1,6 @@
 package com.svaboda.telegram.fileresources;
 
+import com.svaboda.telegram.domain.ResourcesProperties;
 import io.vavr.control.Try;
 import lombok.RequiredArgsConstructor;
 
@@ -8,9 +9,13 @@ import java.io.InputStream;
 @RequiredArgsConstructor
 class TextFileResourceReader {
 
-    private final static String DEFAULT_TEXT_FILE_EXT = ".txt";
-
     private final String resourcePath;
+    private final String fileExtension;
+
+    TextFileResourceReader(ResourcesProperties properties) {
+        this.resourcePath = properties.path();
+        this.fileExtension = properties.fileExtension();
+    }
 
     Try<String> readFrom(String filename) {
         return Try.of(() -> filename)
@@ -21,10 +26,11 @@ class TextFileResourceReader {
     }
 
     private String asFullPath(String filename) {
-        return resourcePath+filename+DEFAULT_TEXT_FILE_EXT;
+        return resourcePath+filename+fileExtension;
     }
 
     private InputStream asStream(String path) {
         return getClass().getClassLoader().getResourceAsStream(path);
     }
+
 }

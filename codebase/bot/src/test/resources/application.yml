@@ -1,15 +1,27 @@
+server:
+  port: 8080
 env:
   telegram:
     texts:
       path: texts/
+      fileExtension: .md
+      maxResourceSize: 3000
+      topicEnrichmentLine: back to topics -> /topics
+      goToArticleLine: go to article ->
     bot:
       name: any-name
       token: any-token
       baseUrl: https://localhost:8080
   commands:
     -
-      name: test
-      resourceId: test
-    -
       name: cyrillic
       resourceId: cyrillic
+      externalLink: https://docs.google.com/document/d/1-r8kf1zSx1U9RjKIQEfAdL_TKsltG8dXFleMcU9lxbY/edit?usp=sharing
+    -
+      name: huge
+      resourceId: huge
+      externalLink: https://docs.google.com/document/d/1-r8kf1zSx1U9RjKIQEfAdL_TKsltG8dXFleMcU9lxbY/edit?usp=sharing
+    -
+      name: no_whitespace
+      resourceId: no_whitespace
+      externalLink: https://docs.google.com/document/d/1-r8kf1zSx1U9RjKIQEfAdL_TKsltG8dXFleMcU9lxbY/edit?usp=sharing

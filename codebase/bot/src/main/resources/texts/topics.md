@@ -1,6 +1,5 @@
-Available options:
+Pick one of the topics, please:
 
-/menu
 /fyodor1
 /fyodor2
 /fyodor3
