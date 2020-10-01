@@ -45,3 +45,6 @@ deploy worker to take over the work of the main (web) process while it is being 
 next apply changes (ex. new code revision), build and deploy web process:
 `cd codebase && heroku container:push web && heroku container:release web`
 after that scale worker to 0: `heroku ps:scale worker=0 --app svaboda-bot`
+
+## Monitoring and alerting
+[Runscope](https://www.runscope.com/radar/0mr8x407k0jr/dcb9596f-a859-472b-a8f7-304f5ae9041c/overview) is used for now. Executes diagnostic http call against GET /_ready endpoint every minute. 3 failures trigger email alert.

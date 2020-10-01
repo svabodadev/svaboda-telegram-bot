@@ -1,5 +1,10 @@
-Welcome, looking for information? Pick one of the following topics please:
+Available options:
 
-/aboutus
-/inpoland
-/rutest
+/menu
+/fyodor1
+/fyodor2
+/fyodor3
+/fyodor4
+/dielo1
+/dielo2
+/varia

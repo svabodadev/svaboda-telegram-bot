@@ -13,11 +13,23 @@ env:
       name: main
       resourceId: main
     -
-      name: aboutus
-      resourceId: about_us
+      name: fyodor1
+      resourceId: bio1
     -
-      name: inpoland
-      resourceId: in_poland
+      name: fyodor2
+      resourceId: bio2
     -
-      name: rutest
-      resourceId: ru_test
+      name: fyodor3
+      resourceId: bio3
+    -
+      name: fyodor4
+      resourceId: bio4
+    -
+      name: dielo1
+      resourceId: dielo1
+    -
+      name: dielo2
+      resourceId: dielo2
+    -
+      name: varia
+      resourceId: varia
