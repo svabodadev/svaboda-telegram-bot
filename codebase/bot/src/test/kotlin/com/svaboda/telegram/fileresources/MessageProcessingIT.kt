@@ -1,13 +1,14 @@
 package com.svaboda.telegram.fileresources
 
 import com.svaboda.telegram.bot.MessageProcessor
+import com.svaboda.telegram.commands.CommandTestUtils.cyrillicCommand
+import com.svaboda.telegram.commands.CommandTestUtils.topicsCommand
 import com.svaboda.telegram.commands.Commands
 import com.svaboda.telegram.commands.CommandsConfiguration
 import com.svaboda.telegram.commands.CommandsProperties
 import com.svaboda.telegram.domain.ResourceProvider
-import com.svaboda.telegram.fileresources.FileResourcesUtils.TEXTS_PATH
-import com.svaboda.telegram.fileresources.FileResourcesUtils.cyrillicCommand
-import com.svaboda.telegram.fileresources.FileResourcesUtils.topicsCommand
+import com.svaboda.telegram.domain.ResourcesProperties
+import com.svaboda.telegram.fileresources.FileResourcesUtils.resourceProperties
 import com.svaboda.telegram.fileresources.FileResourcesUtils.topicsContent
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
@@ -25,7 +26,7 @@ class MessageProcessingIT {
     private lateinit var commandsConfiguration: CommandsConfiguration
     private lateinit var commands: Commands
 
-    private lateinit var fileResourcesProperties: FileResourcesProperties
+    private val resourceProperties: ResourcesProperties = resourceProperties()
     private lateinit var fileResourcesConfiguration: FileResourcesConfiguration
     private lateinit var resourceProvider: ResourceProvider<String>
 
@@ -41,9 +42,8 @@ class MessageProcessingIT {
         commandsProperties = CommandsProperties(listOf(topicsCommand(), cyrillicCommand()))
         commands = commandsConfiguration.commands(commandsProperties)
 
-        fileResourcesProperties = FileResourcesProperties(TEXTS_PATH, FileResourcesUtils.TEXTS_FILE_EXTENSION)
         fileResourcesConfiguration = FileResourcesConfiguration()
-        resourceProvider = CachedFileResourceProvider(TextFileResourceReader(fileResourcesProperties))
+        resourceProvider = CachedFileResourceProvider(TextFileResourceReader(resourceProperties), resourceProperties)
 
         simpleMessageProcessor = SimpleMessageProcessor(resourceProvider, commands)
 

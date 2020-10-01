@@ -1,5 +1,6 @@
 package com.svaboda.telegram.fileresources;
 
+import com.svaboda.telegram.domain.ResourcesProperties;
 import io.vavr.control.Try;
 import lombok.RequiredArgsConstructor;
 
@@ -11,7 +12,7 @@ class TextFileResourceReader {
     private final String resourcePath;
     private final String fileExtension;
 
-    TextFileResourceReader(FileResourcesProperties properties) {
+    TextFileResourceReader(ResourcesProperties properties) {
         this.resourcePath = properties.path();
         this.fileExtension = properties.fileExtension();
     }

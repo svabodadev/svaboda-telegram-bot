@@ -2,6 +2,7 @@ package com.svaboda.telegram.fileresources;
 
 import com.svaboda.telegram.commands.Command;
 import com.svaboda.telegram.domain.ResourceProvider;
+import com.svaboda.telegram.domain.ResourcesProperties;
 import com.svaboda.telegram.domain.TelegramResource;
 import io.vavr.control.Try;
 import org.slf4j.Logger;
@@ -11,18 +12,19 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
-import static com.svaboda.telegram.commands.Commands.TOPICS_COMMAND_NAME;
+import static com.svaboda.telegram.support.ArgsValidation.notNull;
 
 class CachedFileResourceProvider implements ResourceProvider<String> {
 
     private static final Logger LOG = LoggerFactory.getLogger(CachedFileResourceProvider.class);
-    private static final String TOPICS_ENRICHMENT_LINE = "\n/"+ TOPICS_COMMAND_NAME;
 
     private final Map<String,TelegramResource<String>> cache = new ConcurrentHashMap<>();
     private final TextFileResourceReader textFileResourceReader;
+    private final ResourcesProperties resourcesProperties;
 
-    CachedFileResourceProvider(TextFileResourceReader textFileResourceReader) {
-        this.textFileResourceReader = textFileResourceReader;
+    CachedFileResourceProvider(TextFileResourceReader textFileResourceReader, ResourcesProperties resourcesProperties) {
+        this.textFileResourceReader = notNull(textFileResourceReader);
+        this.resourcesProperties = notNull(resourcesProperties);
     }
 
     @Override
@@ -37,16 +39,26 @@ class CachedFileResourceProvider implements ResourceProvider<String> {
 
     private TelegramResource<String> resolveContentBy(Command command) {
         return textFileResourceReader.readFrom(command.resourceId())
+                .map(enrichWithLink(command))
                 .map(enrichWithTopicsCommand(command))
-                .peek(output -> System.out.println("### toupu"+output))
                 .map(TelegramResource::new)
-                .recoverWith(failure -> Try.failure(new ReadingFileException("Unable to read file"+command.resourceId(), failure)))
+                .recoverWith(failure -> Try.failure(
+                            new ReadingFileException("Unable to resolve resource"+command.resourceId(), failure)
+                        )
+                )
                 .onFailure(failure -> LOG.error(failure.getMessage(), failure))
                 .get();//todo recovery with other resource?
-
     }
 
     private Function<String,String> enrichWithTopicsCommand(Command command) {
-        return text -> TOPICS_COMMAND_NAME.equals(command.name()) ? text : text + TOPICS_ENRICHMENT_LINE;
+        return text -> command.isTopicsCommand() ? text
+                : text + resourcesProperties.topicEnrichmentLine();
     }
+
+    private Function<String,String> enrichWithLink(Command command) {
+        return text -> command.externalLink()
+                    .map(link -> text + resourcesProperties.goToArticleLine() + link)
+                    .orElse(text);
+    }
+
 }

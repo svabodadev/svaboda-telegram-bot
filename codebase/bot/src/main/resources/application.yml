@@ -5,6 +5,9 @@ env:
     texts:
       path: texts/
       fileExtension: .md
+      maxResourceSize: 3000
+      topicEnrichmentLine: back to topics -> /topics
+      goToArticleLine: go to article ->
     bot:
       name: ${BOT_NAME}
       token: ${BOT_TOKEN}
@@ -13,21 +16,28 @@ env:
     -
       name: fyodor1
       resourceId: bio1
+      externalLink: https://docs.google.com/document/d/1-r8kf1zSx1U9RjKIQEfAdL_TKsltG8dXFleMcU9lxbY/edit?usp=sharing
     -
       name: fyodor2
       resourceId: bio2
+      externalLink: https://docs.google.com/document/d/1-r8kf1zSx1U9RjKIQEfAdL_TKsltG8dXFleMcU9lxbY/edit?usp=sharing
     -
       name: fyodor3
       resourceId: bio3
+      externalLink: https://docs.google.com/document/d/1-r8kf1zSx1U9RjKIQEfAdL_TKsltG8dXFleMcU9lxbY/edit?usp=sharing
     -
       name: fyodor4
       resourceId: bio4
+      externalLink: https://docs.google.com/document/d/1-r8kf1zSx1U9RjKIQEfAdL_TKsltG8dXFleMcU9lxbY/edit?usp=sharing
     -
       name: dielo1
       resourceId: dielo1
+      externalLink: https://docs.google.com/document/d/1-r8kf1zSx1U9RjKIQEfAdL_TKsltG8dXFleMcU9lxbY/edit?usp=sharing
     -
       name: dielo2
       resourceId: dielo2
+      externalLink: https://docs.google.com/document/d/1-r8kf1zSx1U9RjKIQEfAdL_TKsltG8dXFleMcU9lxbY/edit?usp=sharing
     -
       name: varia
       resourceId: varia
+      externalLink: https://docs.google.com/document/d/1-r8kf1zSx1U9RjKIQEfAdL_TKsltG8dXFleMcU9lxbY/edit?usp=sharing

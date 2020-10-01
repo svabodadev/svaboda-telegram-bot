@@ -14,4 +14,9 @@ public interface ArgsValidation {
         return arg;
     }
 
+    static <T extends Number> T positive(T arg) {
+        if (arg == null || arg.longValue() <= 0) throw new IllegalArgumentException("Number must be positive");
+        return arg;
+    }
+
 }

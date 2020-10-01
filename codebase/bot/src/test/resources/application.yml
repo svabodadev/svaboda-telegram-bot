@@ -5,6 +5,9 @@ env:
     texts:
       path: texts/
       fileExtension: .md
+      maxResourceSize: 3000
+      topicEnrichmentLine: back to topics -> /topics
+      goToArticleLine: go to article ->
     bot:
       name: any-name
       token: any-token
@@ -13,3 +16,4 @@ env:
     -
       name: cyrillic
       resourceId: cyrillic
+      externalLink: https://docs.google.com/document/d/1-r8kf1zSx1U9RjKIQEfAdL_TKsltG8dXFleMcU9lxbY/edit?usp=sharing

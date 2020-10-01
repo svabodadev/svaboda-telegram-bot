@@ -14,7 +14,7 @@ class CommandsContainer implements Commands {
 
     @Override
     public Command byName(String commandName) {
-        return commandsCache.getOrDefault(commandName, topicsCommand());
+        return commandsCache.getOrDefault(commandName, Command.TOPICS_INSTANCE);
     }
 
 }

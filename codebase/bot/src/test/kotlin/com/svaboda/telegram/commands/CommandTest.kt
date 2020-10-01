@@ -1,5 +1,6 @@
 package com.svaboda.telegram.commands
 
+import com.svaboda.telegram.commands.CommandTestUtils.ANY_EXTERNAL_LINK
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -13,7 +14,7 @@ class CommandTest {
 
         //then
         invalidParams.forEach {
-            assertThrows<IllegalArgumentException> { Command(it, it) }
+            assertThrows<IllegalArgumentException> { Command(it, it, it) }
         }
     }
 
@@ -24,7 +25,7 @@ class CommandTest {
         val name = "any-name"
 
         //when
-        val result = Command(name, "any")
+        val result = Command(name, "any", ANY_EXTERNAL_LINK)
 
         //then
         assertThat(result.name()).isEqualTo("$prefix$name")
@@ -36,10 +37,22 @@ class CommandTest {
         val prefixedName = "/any-name"
 
         //when
-        val result = Command(prefixedName, "any")
+        val result = Command(prefixedName, "any", ANY_EXTERNAL_LINK)
 
         //then
         assertThat(result.name()).isEqualTo(prefixedName)
+    }
+
+    @Test
+    fun `should return false when command is not topics command`() {
+        //given
+        val command = Command("any", "any", ANY_EXTERNAL_LINK)
+
+        //when
+        val result = command.isTopicsCommand
+
+        //then
+        assertThat(result).isFalse()
     }
 
 }
