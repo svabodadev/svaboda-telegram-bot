@@ -1,11 +1,12 @@
 package com.svaboda.telegram.fileresources
 
+import com.svaboda.telegram.commands.CommandTestUtils
 import com.svaboda.telegram.commands.CommandTestUtils.cyrillicCommand
 import com.svaboda.telegram.commands.CommandTestUtils.topicsCommand
 import com.svaboda.telegram.domain.ResourceProvider
 import com.svaboda.telegram.domain.TelegramResource
+import com.svaboda.telegram.fileresources.FileResourcesUtils.cyrillicContent
 import com.svaboda.telegram.fileresources.FileResourcesUtils.cyrillicContentWithLinkAndTopics
-import com.svaboda.telegram.fileresources.FileResourcesUtils.resourceProperties
 import com.svaboda.telegram.fileresources.FileResourcesUtils.topicsContent
 import io.vavr.control.Try
 import org.assertj.core.api.Assertions.assertThat
@@ -16,15 +17,15 @@ import java.lang.RuntimeException
 
 class CachedFileResourceProviderSpec {
 
-    private val resourcesProperties = resourceProperties()
-
+    private val resourcesProperties = FileResourcesUtils.resourceProperties()
+    private val commandsProperties = CommandTestUtils.commandsProperties()
     private lateinit var cachedFileResourceProviderIT: ResourceProvider<String>
 
     @Test
     fun `should return telegram resource with proper text content when default command provided`() {
         //given
         cachedFileResourceProviderIT = CachedFileResourceProvider(
-                TextFileResourceReader(resourcesProperties), resourcesProperties
+                TextFileResourceReader(resourcesProperties), TextTransformer(resourcesProperties, commandsProperties)
         )
 
         val defaultCommand = topicsCommand()
@@ -41,9 +42,12 @@ class CachedFileResourceProviderSpec {
         //given
         val command = cyrillicCommand()
         val resourceProvider = Mockito.mock(TextFileResourceReader::class.java)
+        val resourceTransformer = Mockito.mock(TextTransformer::class.java)
         Mockito.`when`(resourceProvider.readFrom(command.resourceId()))
+                .thenReturn(Try.success(cyrillicContent()))
+        Mockito.`when`(resourceTransformer.asContent(command, cyrillicContent()))
                 .thenReturn(Try.success(cyrillicContentWithLinkAndTopics()))
-        cachedFileResourceProviderIT = CachedFileResourceProvider(resourceProvider, resourcesProperties)
+        cachedFileResourceProviderIT = CachedFileResourceProvider(resourceProvider, resourceTransformer)
         val numberOfCalls = 10
 
         //when
@@ -57,7 +61,7 @@ class CachedFileResourceProviderSpec {
     fun `should return the same result when calling multiple times with the same command`() {
         //given
         cachedFileResourceProviderIT = CachedFileResourceProvider(
-                TextFileResourceReader(resourcesProperties), resourcesProperties
+                TextFileResourceReader(resourcesProperties), TextTransformer(resourcesProperties, commandsProperties)
         )
 
         val numberOfCalls = 10
@@ -78,10 +82,11 @@ class CachedFileResourceProviderSpec {
         //given
         val command = cyrillicCommand()
         val resourceProvider = Mockito.mock(TextFileResourceReader::class.java)
+        val resourceTransformer = Mockito.mock(TextTransformer::class.java)
         Mockito.`when`(resourceProvider.readFrom(command.resourceId()))
                 .thenReturn(Try.failure(RuntimeException()))
 
-        cachedFileResourceProviderIT = CachedFileResourceProvider(resourceProvider, resourcesProperties)
+        cachedFileResourceProviderIT = CachedFileResourceProvider(resourceProvider, resourceTransformer)
 
         //when
         val result = cachedFileResourceProviderIT.provideBy(command)

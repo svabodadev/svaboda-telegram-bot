@@ -32,4 +32,5 @@ class TextFileResourceReader {
     private InputStream asStream(String path) {
         return getClass().getClassLoader().getResourceAsStream(path);
     }
+
 }

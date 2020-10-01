@@ -1,33 +1,24 @@
 package com.svaboda.telegram.commands;
 
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Setter;
+import lombok.Value;
 
 import java.util.Optional;
 
 import static com.svaboda.telegram.support.ArgsValidation.notEmpty;
 
-@Data
+@Value
 public class Command {
-    public final static Command TOPICS_INSTANCE = new Command("/topics", "topics");
+    public final static Command TOPICS_INSTANCE = new Command("/topics", "topics", null);
     private final static String PREFIX = "/";
 
-    @Setter(AccessLevel.NONE)
-    private final String name;
-    @Setter(AccessLevel.NONE)
-    private final String resourceId;
-    @Setter(AccessLevel.NONE)
-    private String externalLink = null;
+    String name;
+    String resourceId;
+    String externalLink;
 
     Command(String name, String resourceId, String externalLink) {
-        this(name, resourceId);
-        this.externalLink = externalLink;
-    }
-
-    private Command(String name, String resourceId) {
         this.name = enrichWithPrefix(notEmpty(name));
         this.resourceId = notEmpty(resourceId);
+        this.externalLink = externalLink;
     }
 
     public boolean isTopicsCommand() {

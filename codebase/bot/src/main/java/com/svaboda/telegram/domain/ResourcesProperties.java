@@ -23,8 +23,8 @@ public class ResourcesProperties {
         this.path = notEmpty(path);
         this.fileExtension = notEmpty(fileExtension);//todo to be removed - content should be read from google docs
         this.maxResourceSize = positive(maxResourceSize);
-        this.topicEnrichmentLine = "\n"+notEmpty(topicEnrichmentLine);
-        this.goToArticleLine = "\n"+notEmpty(goToArticleLine)+" ";
+        this.topicEnrichmentLine = "\n\n"+notEmpty(topicEnrichmentLine);
+        this.goToArticleLine = "\n\n"+notEmpty(goToArticleLine)+" ";
     }
 
 }

@@ -8,6 +8,7 @@ object FileResourcesUtils {
     private const val TEXTS_PATH = "texts/"
     const val TEXTS_FILE_EXTENSION = ".md"
     const val MAX_RESOURCE_SIZE = 3_000
+    const val MIN_RESOURCE_SIZE = 500
     const val TOPICS_ENRICHMENT_LINE = "back to topics -> /topics"
     const val GO_TO_ARTICLE_LINE = "go to article ->"
 
@@ -29,9 +30,9 @@ test testtest test
 
     fun topicsContent() = TOPICS_CONTENT
     fun cyrillicContent() = CYRILLIC_CONTENT
-    fun cyrillicContentWithLinkAndTopics() = "$CYRILLIC_CONTENT\n$GO_TO_ARTICLE_LINE ${
+    fun cyrillicContentWithLinkAndTopics() = "$CYRILLIC_CONTENT\n\n$GO_TO_ARTICLE_LINE ${
         cyrillicCommand()
                 .externalLink()
                 .get()
-    }\n$TOPICS_ENRICHMENT_LINE"
+    }\n\n$TOPICS_ENRICHMENT_LINE"
 }

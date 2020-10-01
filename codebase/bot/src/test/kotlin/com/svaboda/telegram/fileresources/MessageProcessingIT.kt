@@ -43,7 +43,9 @@ class MessageProcessingIT {
         commands = commandsConfiguration.commands(commandsProperties)
 
         fileResourcesConfiguration = FileResourcesConfiguration()
-        resourceProvider = CachedFileResourceProvider(TextFileResourceReader(resourceProperties), resourceProperties)
+        resourceProvider = CachedFileResourceProvider(
+                TextFileResourceReader(resourceProperties), TextTransformer(resourceProperties, commandsProperties)
+        )
 
         simpleMessageProcessor = SimpleMessageProcessor(resourceProvider, commands)
 
