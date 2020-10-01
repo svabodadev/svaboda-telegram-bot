@@ -52,4 +52,6 @@ after that scale worker to 0: `heroku ps:scale worker=0 --app svaboda-bot`
 ## TBD
     - do not keep article resources as files - implement scheduled job to read content from provided google docs links
     - replace Runscope with own service (free of charge)
-    - collect metrics, stats (calls by topic counter, etc.) 
+    - collect metrics, stats (calls by topic counter, etc.)
+    - add CICD pipeline (consider CircleCI)
+
