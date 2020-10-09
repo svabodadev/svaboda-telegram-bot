@@ -6,7 +6,7 @@ env:
       path: texts/
       fileExtension: .md
       maxResourceSize: 3000
-      topicEnrichmentLine: Spisok tem -> /spisok_tem
+      topicEnrichmentLine: Список тем -> /spisok_tem
       goToArticleLine: Читай статью дальше ->
       header: ______________________________________________________
     bot:
