@@ -8,7 +8,7 @@ import static com.svaboda.telegram.support.ArgsValidation.notEmpty;
 
 @Value
 public class Command {
-    public final static Command TOPICS_INSTANCE = new Command("/topics", "topics", null);
+    public final static Command TOPICS_INSTANCE = new Command("/spisok_tem", "spisok_tem", null);
     private final static String PREFIX = "/";
 
     String name;

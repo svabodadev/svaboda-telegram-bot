@@ -17,14 +17,21 @@ public class ResourcesProperties {
     int maxResourceSize;
     String topicEnrichmentLine;
     String goToArticleLine;
+    String header;
 
-    public ResourcesProperties(String path, String fileExtension, Integer maxResourceSize, String topicEnrichmentLine,
-                        String goToArticleLine) {
+    public ResourcesProperties(
+            String path,
+            String fileExtension,
+            Integer maxResourceSize,
+            String topicEnrichmentLine,
+            String goToArticleLine,
+            String header) {
         this.path = notEmpty(path);
-        this.fileExtension = notEmpty(fileExtension);//todo to be removed - content should be read from google docs
+        this.fileExtension = notEmpty(fileExtension);
         this.maxResourceSize = positive(maxResourceSize);
-        this.topicEnrichmentLine = "\n\n"+notEmpty(topicEnrichmentLine);
+        this.topicEnrichmentLine = "\n\n"+notEmpty(topicEnrichmentLine)+"\n\n";
         this.goToArticleLine = "\n\n"+notEmpty(goToArticleLine)+" ";
+        this.header = "\n"+notEmpty(header)+"\n\n";
     }
 
 }

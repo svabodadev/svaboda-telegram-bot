@@ -30,8 +30,13 @@ class TextTransformer implements ResourceTransformer<String> {
     public Try<String> asContent(Command command, String resource) {
         return Try.of(() -> resource)
                 .map(withProperSize())
+                .map(enrichWithHeader())
                 .map(enrichWithLink(command))
                 .map(enrichWithTopicsCommand(command));
+    }
+
+    private Function<String,String> enrichWithHeader() {
+        return text -> resourcesProperties.header() + text;
     }
 
     private Function<String,String> enrichWithTopicsCommand(Command command) {
@@ -52,12 +57,12 @@ class TextTransformer implements ResourceTransformer<String> {
     private String toProperSize(String text) {
         final var cutIndex = CUT_PATTERNS.stream()
                 .map(pattern -> text.lastIndexOf(pattern, shortenedMaxResourceSize))
-                .filter(value -> value > 0)
+                .filter(value -> value >= MIN_CONTENT_SIZE)
                 .max(Integer::compare)
                 .orElseGet(
                         () -> {
                             final var index = text.lastIndexOf(SPACE, shortenedMaxResourceSize);
-                            return index > 0 ? index : shortenedMaxResourceSize;
+                            return index >= MIN_CONTENT_SIZE ? index : shortenedMaxResourceSize;
                         }
                 );
         return text.substring(0, cutIndex) + CUT_SUFFIX;
@@ -72,6 +77,7 @@ class TextTransformer implements ResourceTransformer<String> {
                 .max(Integer::compare)
                 .map(result -> result + resourcesProperties.goToArticleLine().length())
                 .map(result -> result + resourcesProperties.topicEnrichmentLine().length())
+                .map(result -> result + resourcesProperties.header().length())
                 .map(result -> result + CUT_SUFFIX.length())
                 .map(result -> resourcesProperties.maxResourceSize() - result)
                 .filter(maxLen -> maxLen > MIN_CONTENT_SIZE)

@@ -3,6 +3,7 @@ package com.svaboda.telegram.fileresources
 import com.svaboda.telegram.commands.CommandTestUtils.cyrillicCommand
 import com.svaboda.telegram.domain.ResourcesProperties
 import com.svaboda.telegram.fileresources.FileResourcesUtils.GO_TO_ARTICLE_LINE
+import com.svaboda.telegram.fileresources.FileResourcesUtils.HEADER
 import com.svaboda.telegram.fileresources.FileResourcesUtils.MAX_RESOURCE_SIZE
 import com.svaboda.telegram.fileresources.FileResourcesUtils.TEXTS_FILE_EXTENSION
 import com.svaboda.telegram.fileresources.FileResourcesUtils.TOPICS_ENRICHMENT_LINE
@@ -33,7 +34,7 @@ class TextFileResourceReaderTest {
         //given
         val invalidPath = "invalid/"
         val invalidProperties = ResourcesProperties(invalidPath, TEXTS_FILE_EXTENSION, MAX_RESOURCE_SIZE,
-                TOPICS_ENRICHMENT_LINE, GO_TO_ARTICLE_LINE)
+                TOPICS_ENRICHMENT_LINE, GO_TO_ARTICLE_LINE, HEADER)
         val filename = cyrillicCommand().name()
         val textFileResourceReader = TextFileResourceReader(invalidProperties)
 
