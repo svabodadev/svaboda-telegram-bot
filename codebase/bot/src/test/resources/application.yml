@@ -8,6 +8,7 @@ env:
       maxResourceSize: 3000
       topicEnrichmentLine: back to topics -> /topics
       goToArticleLine: go to article ->
+      header: ______________________________________________________
     bot:
       name: any-name
       token: any-token
