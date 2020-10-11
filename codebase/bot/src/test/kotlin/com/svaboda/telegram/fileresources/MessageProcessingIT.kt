@@ -3,13 +3,14 @@ package com.svaboda.telegram.fileresources
 import com.svaboda.telegram.bot.MessageProcessor
 import com.svaboda.telegram.commands.CommandTestUtils.cyrillicCommand
 import com.svaboda.telegram.commands.CommandTestUtils.topicsCommand
-import com.svaboda.telegram.commands.Commands
 import com.svaboda.telegram.commands.CommandsConfiguration
 import com.svaboda.telegram.commands.CommandsProperties
-import com.svaboda.telegram.domain.ResourceProvider
 import com.svaboda.telegram.domain.ResourcesProperties
 import com.svaboda.telegram.fileresources.FileResourcesUtils.resourceProperties
 import com.svaboda.telegram.fileresources.FileResourcesUtils.topicsContent
+import com.svaboda.telegram.statistics.Statistics
+import com.svaboda.telegram.statistics.StatisticsConfiguration
+import com.svaboda.telegram.statistics.StatisticsHandler
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -22,13 +23,8 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException
 
 class MessageProcessingIT {
 
-    private lateinit var commandsProperties: CommandsProperties
-    private lateinit var commandsConfiguration: CommandsConfiguration
-    private lateinit var commands: Commands
-
-    private val resourceProperties: ResourcesProperties = resourceProperties()
-    private lateinit var fileResourcesConfiguration: FileResourcesConfiguration
-    private lateinit var resourceProvider: ResourceProvider<String>
+    private lateinit var statisticsConfiguration: StatisticsConfiguration
+    private lateinit var statisticsHandler: StatisticsHandler
 
     private lateinit var simpleMessageProcessor: MessageProcessor
 
@@ -38,16 +34,15 @@ class MessageProcessingIT {
 
     @BeforeEach
     fun setup() {
-        commandsConfiguration = CommandsConfiguration()
-        commandsProperties = CommandsProperties(listOf(topicsCommand(), cyrillicCommand()))
-        commands = commandsConfiguration.commands(commandsProperties)
-
-        fileResourcesConfiguration = FileResourcesConfiguration()
-        resourceProvider = CachedFileResourceProvider(
+        val commandsProperties = CommandsProperties(listOf(topicsCommand(), cyrillicCommand()))
+        val commands = CommandsConfiguration().commands(commandsProperties)
+        val resourceProperties: ResourcesProperties = resourceProperties()
+        val resourceProvider = CachedFileResourceProvider(
                 TextFileResourceReader(resourceProperties), TextTransformer(resourceProperties, commandsProperties)
         )
-
-        simpleMessageProcessor = SimpleMessageProcessor(resourceProvider, commands)
+        statisticsConfiguration = StatisticsConfiguration()
+        statisticsHandler = statisticsConfiguration.statisticsHandler()
+        simpleMessageProcessor = SimpleMessageProcessor(resourceProvider, statisticsHandler, commands)
 
         message = Mockito.mock(Message::class.java)
         update = Mockito.mock(Update::class.java)
@@ -106,6 +101,29 @@ class MessageProcessingIT {
 
         //then
         assertThat(result.isFailure).isTrue()
+    }
+
+    @Test
+    fun `should store statistics while processing messages`() {
+        //given
+        val command = topicsCommand()
+        val chatId = 1L
+        val sendMessage = SendMessage(chatId, topicsContent())
+        Mockito.`when`(message.text).thenReturn(command.name())
+        Mockito.`when`(message.chatId).thenReturn(chatId)
+        Mockito.`when`(update.message).thenReturn(message)
+        Mockito.`when`(telegramBot.execute(sendMessage)).thenReturn(Mockito.mock(Message::class.java))
+        val callsNumber = 10
+        for (call in 1..callsNumber) { simpleMessageProcessor.processWith(update, telegramBot) }
+        val expectedStatistic = Statistics.CommandCallCount(command.name(), callsNumber.toLong())
+
+        //when
+        val result = statisticsConfiguration.statisticsProvider().provide().get()
+
+        //then
+        assertThat(result.statistics().size).isOne()
+        assertThat(result.statistics().first()).isEqualTo(expectedStatistic)
+        assertThat(result.uniqueChats()).isOne()
     }
 
 }

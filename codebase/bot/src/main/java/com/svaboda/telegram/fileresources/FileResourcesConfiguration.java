@@ -5,6 +5,7 @@ import com.svaboda.telegram.commands.Commands;
 import com.svaboda.telegram.commands.CommandsProperties;
 import com.svaboda.telegram.domain.ResourceProvider;
 import com.svaboda.telegram.domain.ResourcesProperties;
+import com.svaboda.telegram.statistics.StatisticsHandler;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,9 +16,12 @@ class FileResourcesConfiguration {
 
     @Bean
     MessageProcessor commandHandler(
-            ResourcesProperties resourcesProperties, CommandsProperties commandsProperties, Commands commands) {
+            ResourcesProperties resourcesProperties,
+            StatisticsHandler statisticsHandler,
+            CommandsProperties commandsProperties,
+            Commands commands) {
         return new SimpleMessageProcessor(
-                resourceProvider(resourcesProperties, commandsProperties), commands);
+                resourceProvider(resourcesProperties, commandsProperties), statisticsHandler, commands);
     }
 
     private ResourceProvider<String> resourceProvider(ResourcesProperties resourcesProperties,
