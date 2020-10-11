@@ -5,6 +5,7 @@ import com.svaboda.telegram.commands.Commands;
 import com.svaboda.telegram.commands.Command;
 import com.svaboda.telegram.domain.ResourceProvider;
 import com.svaboda.telegram.domain.TelegramResource;
+import com.svaboda.telegram.statistics.StatisticsHandler;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
 import lombok.RequiredArgsConstructor;
@@ -20,11 +21,13 @@ import static com.svaboda.telegram.support.ArgsValidation.notNull;
 class SimpleMessageProcessor implements MessageProcessor {
 
     private final ResourceProvider<String> resourceProvider;
+    private final StatisticsHandler statisticsHandler;
     private final Commands commands;
 
     @Override
     public Try<Void> processWith(Update update, TelegramLongPollingBot bot) {
         return toCommand(update)
+                .peek(command -> statisticsHandler.register(command, toChatId(update)))
                 .flatMap(resourceProvider::provideBy)
                 .map(TelegramResource::resource)
                 .map(answer -> toMessage(update, answer))
@@ -44,7 +47,11 @@ class SimpleMessageProcessor implements MessageProcessor {
     }
 
     private SendMessage toMessage(Update update, String answer) {
-        return new SendMessage(update.getMessage().getChatId(), answer);
+        return new SendMessage(toChatId(update), answer);
+    }
+
+    private Long toChatId(Update update) {
+        return update.getMessage().getChatId();
     }
 
 }

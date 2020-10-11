@@ -1,0 +1,1 @@
+## The diagnostic module which exposes healthcheck resource for the client
