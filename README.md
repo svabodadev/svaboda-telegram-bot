@@ -1,4 +1,3 @@
 # telegram-bot and helper services
 
-### TBD
-    - prepare generic run script
+### How to build/run/deploy - [see scripts](https://github.com/jarqprog/svaboda-telegram-bot-1/tree/master/scripts)
