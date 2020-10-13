@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 @Slf4j
-class CachedStatistics implements StatisticsProvider, StatisticsHandler {
+class CachedStatistics implements StatisticsHandler {
 
     private final Set<Long> uniqueChats = Collections.synchronizedSet(new HashSet<>());
     private final Map<Command, AtomicLong> commandsCount = Collections.synchronizedMap(new HashMap<>());

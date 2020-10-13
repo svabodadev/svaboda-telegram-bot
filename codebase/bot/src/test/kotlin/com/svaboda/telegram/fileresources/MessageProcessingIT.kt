@@ -118,7 +118,7 @@ class MessageProcessingIT {
         val expectedStatistic = Statistics.CommandCallCount(command.name(), callsNumber.toLong())
 
         //when
-        val result = statisticsConfiguration.statisticsProvider().provide().get()
+        val result = statisticsHandler.provide().get()
 
         //then
         assertThat(result.statistics().size).isOne()
