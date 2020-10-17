@@ -14,8 +14,8 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
-import static com.svaboda.telegram.support.ArgsValidation.notEmpty;
-import static com.svaboda.telegram.support.ArgsValidation.notNull;
+import static com.svaboda.telegram.utils.ArgsValidation.notEmpty;
+import static com.svaboda.telegram.utils.ArgsValidation.notNull;
 
 @RequiredArgsConstructor
 class SimpleMessageProcessor implements MessageProcessor {

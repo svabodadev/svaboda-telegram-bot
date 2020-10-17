@@ -1,1 +1,1 @@
-## The diagnostic module which exposes healthcheck resource for the client
+## Module exposes configured http WebClient bean

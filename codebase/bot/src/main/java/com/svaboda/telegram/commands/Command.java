@@ -4,7 +4,7 @@ import lombok.Value;
 
 import java.util.Optional;
 
-import static com.svaboda.telegram.support.ArgsValidation.notEmpty;
+import static com.svaboda.telegram.utils.ArgsValidation.notEmpty;
 
 @Value
 public class Command {

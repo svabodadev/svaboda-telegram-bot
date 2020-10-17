@@ -9,7 +9,7 @@ import io.vavr.control.Try;
 import java.util.List;
 import java.util.function.Function;
 
-import static com.svaboda.telegram.support.ArgsValidation.notNull;
+import static com.svaboda.telegram.utils.ArgsValidation.notNull;
 
 class TextTransformer implements ResourceTransformer<String> {
 

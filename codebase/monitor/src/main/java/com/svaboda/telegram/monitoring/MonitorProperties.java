@@ -8,8 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.svaboda.telegram.support.ArgsValidation.notEmpty;
-import static com.svaboda.telegram.support.ArgsValidation.positive;
+import static com.svaboda.telegram.utils.ArgsValidation.notEmpty;
+import static com.svaboda.telegram.utils.ArgsValidation.positive;
 
 @ConfigurationProperties(prefix = "env")
 @ConstructorBinding

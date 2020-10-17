@@ -4,7 +4,7 @@ import lombok.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConstructorBinding;
 
-import static com.svaboda.telegram.support.ArgsValidation.notEmpty;
+import static com.svaboda.telegram.utils.ArgsValidation.notEmpty;
 
 @ConfigurationProperties(prefix = "env.telegram.bot")
 @ConstructorBinding

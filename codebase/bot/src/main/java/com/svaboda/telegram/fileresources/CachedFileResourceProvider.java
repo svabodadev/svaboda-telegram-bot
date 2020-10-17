@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static com.svaboda.telegram.support.ArgsValidation.notNull;
+import static com.svaboda.telegram.utils.ArgsValidation.notNull;
 
 class CachedFileResourceProvider implements ResourceProvider<String> {
 

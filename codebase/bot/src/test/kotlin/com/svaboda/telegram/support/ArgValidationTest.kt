@@ -1,7 +1,7 @@
 package com.svaboda.telegram.support
 
-import com.svaboda.telegram.support.ArgsValidation.notEmpty
-import com.svaboda.telegram.support.ArgsValidation.notNull
+import com.svaboda.telegram.utils.ArgsValidation.notEmpty
+import com.svaboda.telegram.utils.ArgsValidation.notNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows

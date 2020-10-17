@@ -4,3 +4,5 @@ env:
   intervalSec: ${INTERVAL_SEC}
   servicesBaseUrls: ${SERVICES_BASE_URLS}
   diagnosticEndpoint: ${DIAGNOSTIC_ENDPOINT}
+  db:
+    url: ${DB_URL}

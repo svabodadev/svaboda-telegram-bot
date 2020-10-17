@@ -1,4 +1,4 @@
-package com.svaboda.telegram.support;
+package com.svaboda.telegram.utils;
 
 import org.springframework.util.StringUtils;
 
