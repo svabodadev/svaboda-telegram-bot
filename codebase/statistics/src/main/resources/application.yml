@@ -1,0 +1,8 @@
+server:
+  port: ${PORT}
+env:
+  intervalSec: ${INTERVAL_SEC}
+  servicesBaseUrls: ${SERVICES_BASE_URLS}
+  httpTimeoutSec: ${HTTP_TIMEOUT_SEC}
+  db:
+    url: ${DB_URL}

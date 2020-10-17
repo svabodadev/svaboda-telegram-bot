@@ -17,7 +17,7 @@ Env vars specific for given service must be provided (please find README file fo
 ## Deploy to Heroku cloud with container registry
 Important: for this kind of build/deployment there is no need to set up env vars. Requires access to our [Heroku](https://dashboard.heroku.com/apps) and [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) installed):
 
-###Prerequisites
+### Prerequisites
 Heroku application name and process type [web or worker](https://devcenter.heroku.com/articles/background-jobs-queueing) 
 must be set (service name - see above - also):
 ```
@@ -31,7 +31,7 @@ To deploy: `./heroku_deploy.sh`
 
 One can find more on the Heroku [website](https://devcenter.heroku.com/articles/container-registry-and-runtime)
 
-###Useful scripts
+### Useful scripts
 To scale:
 ```
 numberOfInstances=1

@@ -1,6 +1,7 @@
 # telegram-bot and helper services
 
-### How to build/run/deploy - [see scripts](https://github.com/jarqprog/svaboda-telegram-bot-1/tree/master/scripts)
+### How to build/run/deploy - checkout `scripts` dir
 
 ### TBD:
     migrate to java 15
+    alerting service

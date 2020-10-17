@@ -1,1 +1,2 @@
-## The http module which exposes web client bean for the client
+## The diagnostic module which exposes simple diagnostic data via REST endpoint
+Http response `OK` indicates service is alive

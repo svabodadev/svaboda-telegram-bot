@@ -22,10 +22,8 @@ RUN chmod +x "/run.sh"
 ARG _port=$_port
 ARG _intervalSec=$_intervalSec
 ARG _servicesBaseUrls=$_servicesBaseUrls
-ARG _diagnosticEndpoint=$_diagnosticEndpoint
 ENV PORT=$_port
 ENV INTERVAL_SEC=$_intervalSec
 ENV SERVICES_BASE_URLS=$_servicesBaseUrls
-ENV DIAGNOSTIC_ENDPOINT=$_diagnosticEndpoint
 
 ENTRYPOINT ["/run.sh"]

@@ -1,0 +1,13 @@
+plugins {
+    id "org.springframework.boot" version "2.3.4.RELEASE"
+}
+
+dependencies {
+    implementation "org.springframework.boot:spring-boot-starter-webflux:$springbootVersion"
+    implementation "org.springframework.boot:spring-boot-starter-data-mongodb:$springbootVersion"
+    implementation project(":lib-diagnostic")
+    implementation project(":lib-http")
+    implementation project(":lib-utils")
+    implementation project(":lib-storage")
+
+}
