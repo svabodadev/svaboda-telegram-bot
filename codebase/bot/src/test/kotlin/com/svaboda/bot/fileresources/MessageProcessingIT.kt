@@ -8,9 +8,9 @@ import com.svaboda.bot.commands.CommandsProperties
 import com.svaboda.bot.domain.ResourcesProperties
 import com.svaboda.bot.fileresources.FileResourcesUtils.resourceProperties
 import com.svaboda.bot.fileresources.FileResourcesUtils.topicsContent
-import com.svaboda.statistics.Statistics
-import com.svaboda.statistics.StatisticsConfiguration
-import com.svaboda.statistics.StatisticsHandler
+import com.svaboda.bot.stats.Statistics
+import com.svaboda.bot.stats.StatisticsConfiguration
+import com.svaboda.bot.stats.StatisticsHandler
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

@@ -14,16 +14,15 @@ import java.time.Duration;
 @AllArgsConstructor
 class StatsProvider {
 
-    private final Duration timeoutSec;
     private final WebClient webClient;
 
     Try<ResponseEntity<Statistics>> statsFrom(String url) {
         return Try.of(() -> webClient.get()
-                        .uri(url)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .retrieve()
-                        .toEntity(Statistics.class)
-                        .block(timeoutSec)
+                .uri(url)
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .toEntity(Statistics.class)
+                .block()
         );
     }
 }

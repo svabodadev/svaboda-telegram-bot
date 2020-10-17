@@ -29,7 +29,7 @@ class StatsProcess {
         final var failure = new RuntimeException(errorMsg, throwable);
         log.error(errorMsg, failure);
         failureInfoRepository.save(FailureInfo.from(failure))
-            .onFailure(ex -> log.error("Error occurred on handling failure", ex));
+                .onFailure(ex -> log.error("Error occurred on handling failure", ex));
     }
 
 }

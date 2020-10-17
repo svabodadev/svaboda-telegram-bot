@@ -4,10 +4,9 @@ plugins {
 
 dependencies {
     implementation "org.springframework.boot:spring-boot-starter-webflux:$springbootVersion"
-    implementation "org.springframework.boot:spring-boot-starter-data-mongodb:$springbootVersion"
+    implementation "org.eclipse.jetty:jetty-reactive-httpclient:1.1.4"
     implementation project(":lib-diagnostic")
-    implementation project(":lib-http")
     implementation project(":lib-utils")
     implementation project(":lib-storage")
-
+    implementation project(":lib-http")
 }

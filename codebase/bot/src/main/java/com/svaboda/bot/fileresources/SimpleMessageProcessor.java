@@ -5,7 +5,7 @@ import com.svaboda.bot.commands.Commands;
 import com.svaboda.bot.commands.Command;
 import com.svaboda.bot.domain.ResourceProvider;
 import com.svaboda.bot.domain.TelegramResource;
-import com.svaboda.statistics.StatisticsRegistration;
+import com.svaboda.bot.stats.StatisticsRegistration;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
 import lombok.RequiredArgsConstructor;

@@ -5,7 +5,7 @@ import com.svaboda.bot.commands.Commands;
 import com.svaboda.bot.commands.CommandsProperties;
 import com.svaboda.bot.domain.ResourceProvider;
 import com.svaboda.bot.domain.ResourcesProperties;
-import com.svaboda.statistics.StatisticsRegistration;
+import com.svaboda.bot.stats.StatisticsRegistration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

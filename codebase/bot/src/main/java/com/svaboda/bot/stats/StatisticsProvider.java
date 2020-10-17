@@ -1,4 +1,4 @@
-package com.svaboda.statistics;
+package com.svaboda.bot.stats;
 
 import io.vavr.control.Try;
 

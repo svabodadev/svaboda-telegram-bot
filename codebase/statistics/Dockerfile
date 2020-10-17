@@ -22,13 +22,11 @@ RUN chmod +x "/run.sh"
 ARG _port=$_port
 ARG _intervalSec=$_intervalSec
 ARG _servicesBaseUrls=$_servicesBaseUrls
-ARG _httpTimeoutSec=$_httpTimeoutSec
 ARG _dbUrl=$_dbUrl
 
 ENV PORT=$_port
 ENV INTERVAL_SEC=$_intervalSec
 ENV SERVICES_BASE_URLS=$_servicesBaseUrls
-ENV HTTP_TIMEOUT_SEC=$_httpTimeoutSec
 ENV DB_URL=$_dbUrl
 
 ENTRYPOINT ["/run.sh"]

@@ -19,13 +19,11 @@ import static com.svaboda.utils.ArgsValidation.positive;
 class StatsProperties {
     private final static String URL_SEPARATOR = ",";
     int intervalSec;
-    int httpTimeoutSec;
     List<String> servicesUrls;
 
 
-    StatsProperties(int intervalSec, int httpTimeoutSec, String servicesBaseUrls) {
+    StatsProperties(int intervalSec, String servicesBaseUrls) {
         this.intervalSec = positive(intervalSec);
-        this.httpTimeoutSec = positive(httpTimeoutSec);
         this.servicesUrls = Arrays.stream(notEmpty(servicesBaseUrls).split(URL_SEPARATOR))
                 .map(baseUrl -> "https://" + baseUrl + Endpoints.STATS)
                 .collect(Collectors.toList());
@@ -33,10 +31,6 @@ class StatsProperties {
 
     Duration intervalSec() {
         return Duration.ofSeconds(intervalSec);
-    }
-
-    Duration httpTimeoutSec() {
-        return Duration.ofSeconds(httpTimeoutSec);
     }
 
 }

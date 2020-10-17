@@ -31,7 +31,7 @@ class MonitoringConfig {
                     log.info("Scheduling monitoring for {}", url);
                     final var monitor = monitorProcess(webClient, url);
                     scheduler.scheduleWithFixedDelay(monitor::process, Duration.ofSeconds(monitorProperties.intervalSec()));
-            log.info("Monitoring for {} scheduled", url);
+                    log.info("Monitoring for {} scheduled", url);
                 }
         );
     }

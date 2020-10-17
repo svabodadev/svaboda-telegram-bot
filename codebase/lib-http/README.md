@@ -1,1 +1,1 @@
-## Module exposes configured http WebClient bean
+## The http module which exposes WebClient (http client) bean

@@ -2,7 +2,7 @@ package com.svaboda.statistics.stats;
 
 import com.svaboda.storage.failureinfo.FailureInfoRepository;
 import com.svaboda.storage.stats.StatsRepository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +13,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 @Slf4j
 @Configuration
-@AllArgsConstructor
+@RequiredArgsConstructor
 @EnableConfigurationProperties({StatsProperties.class})
 class StatsConfig {
 
@@ -36,20 +36,17 @@ class StatsConfig {
                           FailureInfoRepository failureInfoRepository) {
         statsProperties.servicesUrls().forEach(url -> {
                     log.info("Scheduling stats process for {}", url);
-                    final var stats = statsProcess(statsProperties, webClient, url, statsRepository, failureInfoRepository);
+                    final var stats = statsProcess(webClient, url, statsRepository, failureInfoRepository);
                     scheduler.scheduleWithFixedDelay(stats::process, statsProperties.intervalSec());
                     log.info("stats process for {} scheduled", url);
                 }
         );
     }
 
-    private StatsProcess statsProcess(StatsProperties statsProperties,
-                                      WebClient webClient,
+    private StatsProcess statsProcess(WebClient webClient,
                                       String url,
                                       StatsRepository statsRepository,
                                       FailureInfoRepository failureInfoRepository) {
-        final var statsProvider = new StatsProvider(statsProperties.httpTimeoutSec(), webClient);
-        return new StatsProcess(statsProvider, url, statsRepository, failureInfoRepository);
+        return new StatsProcess(new StatsProvider(webClient), url, statsRepository, failureInfoRepository);
     }
-
 }

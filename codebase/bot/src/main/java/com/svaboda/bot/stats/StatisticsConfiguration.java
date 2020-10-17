@@ -1,4 +1,4 @@
-package com.svaboda.statistics;
+package com.svaboda.bot.stats;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,13 +1,13 @@
 package com.svaboda.monitor.monitoring;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 class HealthChecking {
 
     private final WebClient webClient;
