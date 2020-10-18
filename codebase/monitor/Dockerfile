@@ -26,4 +26,6 @@ ENV PORT=$_port
 ENV INTERVAL_SEC=$_intervalSec
 ENV SERVICES_BASE_URLS=$_servicesBaseUrls
 
+EXPOSE $PORT
+
 ENTRYPOINT ["/run.sh"]

@@ -35,4 +35,13 @@ class CachedStatistics implements StatisticsHandler {
         ).map(commandsCount -> new Statistics(uniqueChats.size(), commandsCount));
     }
 
+    @Override
+    public Try<Void> delete() {
+        return Try.run(() -> {
+            uniqueChats.clear();
+            commandsCount.clear();
+        })
+                .peek(__ -> log.info("stats deleted"))
+                .onFailure(failure -> log.error("Error occurred on removing stats", failure));
+    }
 }

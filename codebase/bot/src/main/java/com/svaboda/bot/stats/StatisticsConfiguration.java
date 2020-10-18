@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class StatisticsConfiguration {
 
-    @Bean(name = {"statisticsHandler", "statisticsProvider", "statisticsHandler"})
+    @Bean(name = {"statisticsRegistration", "statisticsProvider", "statisticDeletion", "statisticsHandler"})
     public StatisticsHandler statisticsHandler() {
         return new CachedStatistics();
     }

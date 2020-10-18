@@ -26,4 +26,6 @@ ENV PORT=$_port
 ENV BOT_NAME=$_name
 ENV BOT_TOKEN=$_token
 
+EXPOSE $PORT
+
 ENTRYPOINT ["/run.sh"]

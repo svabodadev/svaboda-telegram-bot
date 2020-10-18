@@ -29,4 +29,6 @@ ENV INTERVAL_SEC=$_intervalSec
 ENV SERVICES_BASE_URLS=$_servicesBaseUrls
 ENV DB_URL=$_dbUrl
 
+EXPOSE $PORT
+
 ENTRYPOINT ["/run.sh"]

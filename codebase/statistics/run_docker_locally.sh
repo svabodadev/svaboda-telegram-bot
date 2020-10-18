@@ -7,5 +7,4 @@ docker build -f statistics/Dockerfile \
     --build-arg _servicesBaseUrls="$SERVICES_BASE_URLS" \
     --build-arg _dbUrl="$DB_URL" \
     -t statistics-service .
-
-docker run statistics-service:latest
+docker run -p "$PORT":"$PORT" statistics-service:latest

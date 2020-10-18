@@ -85,4 +85,22 @@ class CachedStatisticsTest {
         //then
         assertThat(result.uniqueChats()).isEqualTo(expectedResult)
     }
+
+    @Test
+    fun `should delete statistics`() {
+        //given
+        val chats = listOf(1L, 2L, 1L, 3L, 1L, 3L)
+        val command = Command.TOPICS_INSTANCE
+        chats.forEach { chatId ->
+            for(call in 1..10) { cachedStatistics.register(command, chatId) }
+        }
+        cachedStatistics.delete()
+
+        //when
+        val result = cachedStatistics.provide().get()
+
+        //then
+        assertThat(result.uniqueChats()).isZero()
+        assertThat(result.statistics()).isEmpty()
+    }
 }

@@ -8,4 +8,4 @@ docker build -f bot/Dockerfile \
   --build-arg _token="$BOT_TOKEN" \
   -t bot-service .
 
-docker run bot-service:latest
+docker run -p "$PORT":"$PORT" bot-service:latest
