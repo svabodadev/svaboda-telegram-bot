@@ -2,6 +2,8 @@ package com.svaboda.bot.stats;
 
 import io.vavr.control.Try;
 
+import java.util.List;
+
 public interface StatisticsProvider {
-    Try<Statistics> provide();
+    Try<List<HourlyStatistics>> provide();
 }

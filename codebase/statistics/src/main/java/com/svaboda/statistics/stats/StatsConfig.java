@@ -19,34 +19,40 @@ class StatsConfig {
 
     @Bean
     TaskScheduler taskScheduler(StatsProperties statsProperties,
-                                WebClient webClient,
-                                StatsRepository statsRepository,
+                                StatsOperation statsOperation,
                                 FailureInfoRepository failureInfoRepository) {
         var scheduler = new ThreadPoolTaskScheduler();
         scheduler.setPoolSize(statsProperties.servicesUrls().size());
         scheduler.initialize();
-        schedule(scheduler, statsProperties, webClient, statsRepository, failureInfoRepository);
+        schedule(scheduler, statsProperties, statsOperation, failureInfoRepository);
         return scheduler;
+    }
+
+    @Bean
+    StatsOperation statsOperation(StatsRepository statsRepository, WebClient botClient) {
+        return new StatsTransactionalOperation(
+                statsRepository,
+                new StatsProvider(botClient),
+                new StatsDeletion(botClient)
+        );
     }
 
     private void schedule(ThreadPoolTaskScheduler scheduler,
                           StatsProperties statsProperties,
-                          WebClient webClient,
-                          StatsRepository statsRepository,
+                          StatsOperation statsOperation,
                           FailureInfoRepository failureInfoRepository) {
-        statsProperties.servicesUrls().forEach(url -> {
-                    log.info("Scheduling stats process for {}", url);
-                    final var stats = statsProcess(webClient, url, statsRepository, failureInfoRepository);
+        statsProperties.servicesUrls().forEach(targetServiceUrl -> {
+                    log.info("Scheduling stats process for {}", targetServiceUrl);
+                    final var stats = statsProcess(targetServiceUrl, statsOperation, failureInfoRepository);
                     scheduler.scheduleWithFixedDelay(stats::process, statsProperties.intervalSec());
-                    log.info("stats process for {} scheduled", url);
+                    log.info("stats process for {} scheduled", targetServiceUrl);
                 }
         );
     }
 
-    private StatsProcess statsProcess(WebClient webClient,
-                                      String url,
-                                      StatsRepository statsRepository,
+    private StatsProcess statsProcess(String targetServiceUrl,
+                                      StatsOperation statsOperation,
                                       FailureInfoRepository failureInfoRepository) {
-        return new StatsProcess(new StatsProvider(webClient), url, statsRepository, failureInfoRepository);
+        return new StatsProcess(targetServiceUrl, statsOperation, failureInfoRepository);
     }
 }

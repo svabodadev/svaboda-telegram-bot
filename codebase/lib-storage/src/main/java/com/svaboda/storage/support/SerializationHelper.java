@@ -24,7 +24,6 @@ public interface SerializationHelper {
                 .setVisibility(FIELD, ANY)
                 .configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
                 .setSerializationInclusion(NON_ABSENT)
-                .registerModule(new JavaTimeModule())
-                .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+                .registerModule(new JavaTimeModule());
     }
 }

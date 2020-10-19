@@ -8,7 +8,6 @@ import com.svaboda.bot.commands.CommandsProperties
 import com.svaboda.bot.domain.ResourcesProperties
 import com.svaboda.bot.fileresources.FileResourcesUtils.resourceProperties
 import com.svaboda.bot.fileresources.FileResourcesUtils.topicsContent
-import com.svaboda.bot.stats.Statistics
 import com.svaboda.bot.stats.StatisticsConfiguration
 import com.svaboda.bot.stats.StatisticsHandler
 import org.assertj.core.api.Assertions.assertThat
@@ -115,15 +114,14 @@ class MessageProcessingIT {
         Mockito.`when`(telegramBot.execute(sendMessage)).thenReturn(Mockito.mock(Message::class.java))
         val callsNumber = 10
         for (call in 1..callsNumber) { simpleMessageProcessor.processWith(update, telegramBot) }
-        val expectedStatistic = Statistics.CommandCallCount(command.name(), callsNumber.toLong())
 
         //when
         val result = statisticsHandler.provide().get()
 
         //then
-        assertThat(result.statistics().size).isOne()
-        assertThat(result.statistics().first()).isEqualTo(expectedStatistic)
-        assertThat(result.uniqueChats()).isOne()
+        assertThat(result.size).isOne()
+        assertThat(result.first().commandsCalls()).isEqualTo(mapOf(Pair(command.name(), callsNumber)))
+        assertThat(result.first().uniqueChats()).isEqualTo(setOf(chatId))
     }
 
 }

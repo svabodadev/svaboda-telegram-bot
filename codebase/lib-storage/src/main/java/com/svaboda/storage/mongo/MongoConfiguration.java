@@ -1,27 +1,48 @@
 package com.svaboda.storage.mongo;
 
-
+import com.mongodb.ConnectionString;
+import com.mongodb.MongoClientSettings;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
-import org.springframework.data.mongodb.core.convert.DefaultDbRefResolver;
-import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
-import org.springframework.data.mongodb.core.mapping.MongoMappingContext;
-
+import org.springframework.data.mongodb.MongoDatabaseFactory;
+import org.springframework.data.mongodb.MongoTransactionManager;
+import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
+@EnableTransactionManagement
 @EnableConfigurationProperties({MongoProperties.class})
-class MongoConfiguration {
+class MongoConfiguration extends AbstractMongoClientConfiguration {
+
+    private final MongoProperties mongoProperties;
+
+    MongoConfiguration(MongoProperties mongoProperties) {
+        super();
+        this.mongoProperties = mongoProperties;
+    }
 
     @Bean
-    MongoTemplate mongoTemplate(MongoProperties databaseProperties) {
-        final var dbFactory = new SimpleMongoClientDatabaseFactory(databaseProperties.url());
-        final var dbRefResolver = new DefaultDbRefResolver(dbFactory);
-        final var mappingContext = new MongoMappingContext();
-        mappingContext.setAutoIndexCreation(true);
-        mappingContext.afterPropertiesSet();
-        return new MongoTemplate(dbFactory, new MappingMongoConverter(dbRefResolver, mappingContext));
+    MongoTransactionManager transactionManager(MongoDatabaseFactory dbFactory) {
+        return new MongoTransactionManager(dbFactory);
+    }
+
+    @NotNull
+    @Override
+    protected String getDatabaseName() {
+        return mongoProperties.dbName();
+    }
+
+    @NotNull
+    @Override
+    public MongoClient mongoClient() {
+        final var connectionString = new ConnectionString(mongoProperties.url());
+        final var mongoClientSettings = MongoClientSettings.builder()
+                .applyConnectionString(connectionString)
+                .build();
+        return MongoClients.create(mongoClientSettings);
     }
 }

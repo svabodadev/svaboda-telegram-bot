@@ -4,44 +4,49 @@ import com.svaboda.bot.commands.Command;
 import io.vavr.control.Try;
 import lombok.extern.slf4j.Slf4j;
 
+import java.time.LocalDateTime;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicLong;
-import java.util.stream.Collectors;
 
 @Slf4j
 class CachedStatistics implements StatisticsHandler {
 
-    private final Set<Long> uniqueChats = Collections.synchronizedSet(new HashSet<>());
-    private final Map<Command, AtomicLong> commandsCount = Collections.synchronizedMap(new HashMap<>());
+    private final Stack<HourlyStatistics> archived = new Stack<>();
 
     @Override
     public Try<Void> register(Command command, Long chatId) {
-        return Try.run(() -> {
-            uniqueChats.add(chatId);
-            if (commandsCount.containsKey(command)) {
-                commandsCount.computeIfPresent(command, (__, count) -> new AtomicLong(count.incrementAndGet()));
-                return;
-            }
-            commandsCount.computeIfAbsent(command, __ -> new AtomicLong(1));
-        });
+        return Try.run(() -> registerHourlyStatistics(command, chatId));
     }
 
     @Override
-    public Try<Statistics> provide() {
-        return Try.of(() ->
-                commandsCount.entrySet().stream()
-                        .map(Statistics.CommandCallCount::from)
-                        .collect(Collectors.toList())
-        ).map(commandsCount -> new Statistics(uniqueChats.size(), commandsCount));
+    public Try<List<HourlyStatistics>> provide() {
+        return Try.of(() -> new ArrayList<>(archived));
     }
 
     @Override
-    public Try<Void> delete() {
+    public Try<Void> deleteBefore(LocalDateTime timestamp) {
         return Try.run(() -> {
-            uniqueChats.clear();
-            commandsCount.clear();
+            final var copy = new ArrayList<>(archived);
+            archived.clear();
+            copy.forEach(statistics -> {
+                if (!statistics.isBefore(timestamp)) {
+                    archived.push(statistics);
+                }
+            });
         })
-                .peek(__ -> log.info("stats deleted"))
-                .onFailure(failure -> log.error("Error occurred on removing stats", failure));
+        .onFailure(ex -> log.error("Error occurred on removing archived stats created before {}", timestamp, ex));
+    }
+
+    private void registerHourlyStatistics(Command command, Long chatId) {
+        final var now = LocalDateTime.now();
+        if (archived.isEmpty()) {
+            archived.push(HourlyStatistics.create(now, command, chatId));
+        } else {
+
+            if (archived.peek().isFromSameHour(now)) {
+                archived.peek().register(command, chatId);
+            } else {
+                archived.push(HourlyStatistics.create(now, command, chatId));
+            }
+        }
     }
 }

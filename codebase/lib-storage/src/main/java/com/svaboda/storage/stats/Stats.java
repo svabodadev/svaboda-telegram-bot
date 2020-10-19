@@ -10,17 +10,14 @@ import static com.svaboda.storage.support.SerializationHelper.serialize;
 @AllArgsConstructor
 @NoArgsConstructor
 class Stats {
-
-    private int uniqueChats;
-    private String statistics;
-    private String generatedAt;
+    final static String TIMESTAMP = "timestamp";
+    private String timestamp;
+    private String payload;
 
     static Stats from(Statistics statistics) {
         return new Stats(
-                statistics.uniqueChats(),
-                serialize(statistics.statistics()),
-                statistics.generatedAt()
+                statistics.generatedAt(),
+                serialize(statistics)
         );
     }
-
 }

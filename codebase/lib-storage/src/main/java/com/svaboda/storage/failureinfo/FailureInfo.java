@@ -12,7 +12,7 @@ import java.util.Arrays;
 @NoArgsConstructor
 public class FailureInfo {
 
-    private final static int MAX_STACKTRACE_LENGTH = 500;
+    private final static int MAX_STACKTRACE_LENGTH = 200;
 
     String type;
     String cause;
